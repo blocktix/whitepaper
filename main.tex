@@ -1,0 +1,215 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{url}
+\usepackage[numbers]{natbib}
+\usepackage[a4paper,width=160mm,top=20mm,bottom=24mm,includeheadfoot]{geometry}
+% * <rmathee@gmail.com> 2016-12-28T15:29:28.478Z:
+% \usepackage[a4paper,width=140mm,top=20mm,bottom=24mm,includeheadfoot]{geometry}
+% ^.
+
+\title{Blocktix: Decentralized Ticket Distribution Network}
+\author{Florian Mathieu and Ryno Mathee}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Blocktix is a trustless, decentralized platform for ticket sales and event promotion. The system operates through smart contracts on the Ethereum blockchain, this enables users to verify the validity tickets for a given event, ending counterfeit tickets.
+
+\end{abstract}
+
+\section{Introduction}
+
+The core purpose of Blocktix is to provide a decentralized ticket distribution network. Companies and individuals can buy and sell tickets through unforgeable cryptographic signatures stored on the blockchain. With this approach we have simplified the process of buying and selling tickets, and reduced the infrastructure requirements as centralized servers are removed from the equation. Both parties can therefore enjoy the lowest fees and no downtime due to the decentralized nature .\par
+\vspace{5mm}
+\noindent Anyone who possesses enough tokens is able to create events and sell tickets online without worrying about any of the additional complexities that are typically encountered. Blocktix provides a user friendly interface for the execution of smart contracts, bringing its advanced capabilities to the masses with an intuitive application. This approach reduces the complexity of the  interaction with smart contracts, and provides an additional layer of security minimizing the possibility of fraud or malicious third party interference with the application due to the standardization of contracts.
+
+
+\section{Background}
+According to Meeting Professionals International, "The American meetings and events industry directly and indirectly supports 6.3 million jobs and generates almost \$1 trillion a year in direct, indirect and induced spending..."\cite{ksc2011EventsIndustry}\cite{pwc2012CICMeetings}, thus there is a market for events systems.\par
+\vspace{5mm}
+\noindent With current systems, event hosting and specifically the distribution of tickets is a costly and cumbersome procedure. To simplify the process, event promoters use companies such as Ticketmaster. Distribution services add a surcharge of as much as 15\% of the ticket value, promoters must advertise the event through a variety of mediums to fill the venue too. The advertising costs of an event can regularly exceed 30\% of the total event budget. Ticket fraud \cite{internetfraud} and counterfeiting losses of over \$1 billion\cite{rc2013cfic} per year have caused the need for trusted third party intermediaries in the peer-to-peer transfer aftermarket. These intermediaries charge an additional 20\%-25\% of the transferred value.
+
+
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.20]{event_page.jpg}
+\caption{\label{fig:event_page}A mock up of the event page with the ability to purchase tickets and vouchers.}
+\end{figure}
+
+\section{Concept}
+\subsection{Blockchain}
+The blockchain is the heart of our application and is tasked to secure a wide range of features such as payments, tickets and the event registry. Blocktix will be built on Ethereum\cite{vb2013eth} because it's one of the few blockchains that  provides an efficient and practical toolset for smart contracts. It is the default payment gateway of our application, meaning tickets have to be purchased with the ETH cryptocurrency. It is certainly possible to add other payment gateways such as credit cards and bank transfers through third party integrations. The application will be constructed in such a way that it is certainly possible to add other payment processors but this is outside the scope of this whitepaper.
+
+
+\subsection{Token}
+\subsubsection{Token creation}
+Blocktix rewards all participants of the crowdfunding with tokens (BTX) in return for the amount of Ethereum they sourced to Blocktix. At first 1 ETH is worth 100 BTX, this exchange rate is only available for the first week, thereafter the price will increase by 5\% each day for the following two weeks. If the desired capital is sourced then the tokens will be issued. These will remain locked until the development is nearing its final stages. If the target is not met, then all the Ethereum and Bitcoin that was previously raised will return to their respective owners, minus transaction fees.
+
+\subsubsection{Token reward model}
+\paragraph{Ticket fees}
+Anyone that owns Blocktix Tokens is a token holder and is granted several benefits over non-token holders.
+By participating in the event verification process, the token holder will receive a reward for the work being done. The initial reward will be the BTX that is used to back the event.
+
+\paragraph{Advertising}
+Anyone will be able to purchase advertising rights for an event, these funds will be distributed to all tokens holders who took part in the event verification process, proportional to the amount of tokens they own. The event feed always starts with two "promoted events", when an event is being promoted it has chance to appear in one of these spots.
+
+\paragraph{} Let $TX_1, TX_2, \ldots, TX_m$ be a sequence of m transactions sent to an advertising contract for event $e$.
+
+\paragraph{}First you would calculate the total amount the advertising contract for a given even e has received  by a summation $S_e$ of all $m$ transactions for a given event $e$.
+\[S_e = TX_1 + TX_2 + \cdots + TX_m\]
+
+Percentage wise, the amount of views for a given event $e$ should be equal to roughly $C_e$
+\[C_e = \frac{S_e}{S_1 + S_2 + \cdots + S_n}*100\]
+      
+\paragraph{}
+Every time the event feed updates a new number is generated by a pseudorandom number generator (PRNG) ranging between 0 and $Sum$. 
+
+\[Sum = S_1 + S_2 + \cdots + S_n\]
+
+\subsection{Event feed}
+\paragraph{}The system keeps track of all the ongoing events and displays these in the event feed. Variables such as distance between the event and the user, the starting date, category tags and advertising fees determine the hierarchy within the list. 
+
+\paragraph{Location based} Events happening in close proximity to the user are shown first, as these are more likely to be attended. As the distance between the events and the user starts to become larger then the location factor becomes less influential and the categories start to matter more.
+
+\paragraph{Category based}Events can also be tagged with multiple categories by their creator. A user can 'like' categories such that these are more likely to show up in the event feed. Optionally we could track the behavior of the user offline and build the list of categories without visible user input.
+
+
+\paragraph{Advertising} There will always be two advertised events on every page in the event feed. There is no guarantee that the advertised events are in close proximity to the user or that they share any relevance to categories liked by the user.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.22]{BTX-Diagram-3.jpg}
+\caption{\label{fig:BTX-Diagram-3}When a user starts the application it will load all the events in proximity}
+\end{figure}
+
+\paragraph{Mandatory BTX} The creator of an event must pay a mandatory 1000 BTX for it to show up on the event feed. This is a measure to prevent spammers from overtaking the event feed with bogus events. The mandatory amount is subject to change. It is also worth noting that it is technically possible for someone other than the event creator to pay the mandatory amount so their event shows up in the feed as a form of charity.
+
+
+\subsection{User interface}
+The user interface will be created in HTML and JavaScript, currently we have created the designs of the basic pages to get a clear idea of how it would look. The main key ingredients are beauty and intuitiveness. One look at the application and it should be immediately clear how it works. 
+
+\paragraph{Event page} You can see a preview of the design for the event page, figure two on page 2.  
+
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.22]{BTX-Diagram-4.jpg}
+\caption{\label{fig:BTX-Diagram-4}Ethereum contracts store the hashes references to files stored on IPFS.}
+\end{figure}
+
+\subsection{IPFS}
+IPFS is a public peer-to-peer distributed file system. Anyone can upload files free of cost, you can even turn off your computer and it will still be available to everyone due to its network topology (given that the file is pinned on another computer). Over the past few years it has accumulated a broad support for many programming languages, JavaScript being one of them. This makes it an ideal candidate to build our infrastructure upon.
+The reason we need to adopt IPFS is because most blockchains, Ethereum included, do not support sharded databases, rendering them unsuitable for the storage of larger data. This integration will enable event administrators to customize their event pages with images and videos without losing the decentralized topology.
+
+
+
+
+\section{Contracts}
+
+\paragraph{}
+The Blocktix smart contract programming language will be Solidity\cite{crgwSolidity} as it is currently the flagship language of Ethereum, and most popular language for smart contracts.
+
+\subsection{BlocktixRegistration}
+The registration contract is tasked to store the latest addresses of the Blocktix and EventTemplate contracts. It acts as an update mechanism and can only be changed by the Blocktix administrators or through voting by the token holders. The voting is a long term goal and is expected to be added near the end of the development process such that the system can sustain itself.
+
+
+
+\paragraph{Blocktix Updates}
+When development is complete then token holders will be tasked to take responsibility for updates to Blocktix contracts. They will have to regulate the system by approving or declining proposed changes to contracts. A wide range of variables are subject to change by the token holders that apply for every new event contract. 
+
+\subsection{Blocktix}
+The Blocktix contract houses an array with all event addresses and stores global variables that are enforced on the events and tickets. These include but are not limited to the ticket fees, required BTX to enlist event in the feed and most elements related to advertisement. 
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.22]{BTX-Diagram-2.jpg}
+\caption{\label{fig:BTX-Diagram-2}The Blocktix structure can be updated by the token holders who update the BlocktixRegistration contract which essentially acts as an update contract}
+\end{figure}
+
+\subsection{BlocktixEvent}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.22]{BTX-Diagram-1.jpg}
+\caption{\label{fig:BTX-Diagram-1}Flowchart of a user creating an event}
+\end{figure}
+
+\subsubsection{Event Creation}
+\paragraph{}
+The BlocktixEvent contract is what houses everything related to one specific event. It is brought into existence by the Blocktix contract when creating an event and the creator address is given administrator privileges. Meaning only that address is granted the permission to change settings such as name, location, description, photo's etc. Nevertheless it is possible to add extra administrators to the event.
+
+\paragraph{}
+Anyone will be able to create an event, but it will only show up on the event feed if the event is backed by a minimum of 1000 BTX. The required value for listing will be voted for by the token holders every three months. Non-token holders can still ask token holders to back the event, as a willing token holder could allow anyone to make use of the event feed.
+
+\paragraph{Security} There is a chain of contracts when creating a new event in the system. This ensures the sanity of the contracts being loaded and thus essentially disallowing attackers from launching their own malicious contracts and inserting them into the Blocktix system. The event creators calls the Blocktix contracts (retrieved by BlocktixRegistration) which in turn creates the BlocktixEvent enforcing the usage of the EventTemplate, removing the possibility of tampering with the system.
+
+\subsubsection{Ticket Creation}
+The contract is also the entry point for anything related to tickets of the particular event. The event creator has the possibility of adding multiple "ticket types" to their event contract such that they can differentiate better and offer multiple types of tickets, for example they could offer early bird entry tickets, 1 day pass tickets if the event is for multiple days. Each TicketType maintains an array with all of the valid tickets addresses, allowing the autonomous sale of tickets by the BlocktixEvent contract itself and allow event administrators to manually insert tickets. The latter opens the gap for third parties that wish to  integrate with the Blocktix network. 
+
+\paragraph{High level overview}
+The event contract stores an array of TicketCategory objects, which in turn stores an array of TicketType objects. The TicketCategory object is merely used to optimize the category system, the TicketType objects store most of the information, including an array of the ticket addresses of all previously sold tickets or that specific TicketType. 
+
+\subsubsection{TicketCategory} Tickets are not limited to entry tickets, they can also be utilized as vouchers for food and drinks. That's why Blocktix provides a category systems to allow clean separation of tickets and consumables. 
+\begin{itemize}
+\item name (Name of category examples: tickets, food, drinks, ..)
+\item types (Array of TicketTypes. examples: entry ticket, hamburger, beer,...)
+\end{itemize}
+
+\subsubsection{TicketType}
+Here is an overview for all the properties a TicketType would offer which are all customizable by the event creator.
+\begin{itemize}
+\item name (Name of ticket type)
+\item description (Description of ticket type)
+\item quota (Maximum amount of tickets per type)
+\item price (Price of ticket sale)
+\item startVendingTime (Start date time of ticket type sales)
+\item endVendingTime (End date time of ticket type sales)
+\item startEntryTime (Start date time of ticket type entry)
+\item endEntryTime (End date time of ticket type entry)
+\item owners (Amount of tickets sold)
+\item paid (mapping  of paid prices to addresses)
+\item refundable (is the ticket refundable)
+\end{itemize}
+
+
+\subsubsection{Ticket Trade}
+The tickets can be freely traded directly between users without risk of counterfeit. Sending a ticket to a friend is really easy as you would just need to know their ethereum address. Selling tickets for ETH can be arranged in such a way that both the transfer of the ticket and the payment only happen together. This means that the ticket is only transferred if the money is transferred too, and the other way around. This removes the risk of getting scammed due to the other party not upholding their end.
+
+\subsubsection{Ticket Auction}
+The event creator can also auction tickets if they wish, this allows to maximize revenue or in case of a scarce ticket supply allow the market mechanism to find equilibrium. 
+
+\paragraph{TicketBids} 
+Within the BlocktixEvent is an array of TicketBid objects It tracks the bids by users and has the following properties:
+\begin{itemize}
+\item owner (Address of the bidder)
+\item buy (Boolean - is bid to buy)
+\item price (bid price)
+\item ticketID (ID of ticket type)
+\end{itemize}
+
+The buy variable is in place such that it can be extended to allow sell bids too. This essentially extends the structure to enable both the ticket auctions by the official event creator and the free ticket market where people can trade peer to peer. 
+
+Whenever a bid is placed the array is updated, if this is the only bid in the array then a time interval starts (set by the event creator) which on expiration will automatically sell the ticket to the highest bid in the array. The highest bid is then removed but all others remain untouched, a new interval starts and this loop continues until the array is empty.
+
+\subsubsection{Ticket Verification}
+
+Ticket verification is as easy as verifying a digital signature and making sure the public key is listed as a valid ticket for the specified event. There is no need for event organizers to hire or purchase specialized equipment to verify the validity of tickets. A smartphone with a camera and an internet connection can be used to scan the ticket QR code at the entrance of the event and subsequently execute the smart contract that deactivates the ticket. The contract is then executed on the ethereum network to prevent anyone re-using the QR code to gain entrance.
+
+
+\section{Possible attack vectors}
+\paragraph{Fake events} Tickets are cryptographically secure but they could have been for the wrong event. A user could get tricked into believing that they are buying a ticket for a real event while instead the malicious seller has created a duplicate event. There are a few ways to minimize this attack from occurring but most of them rely on user awareness.
+
+\paragraph{} Several indicators will be placed on the event page that make it more obvious to spot fake events. One of them is the amount of tickets that are already sold, big events most likely will already have sold a decent amount of tickets. The second precaution is to include other events happening on the same location, if a fake event picks the same location then it will be more visible to both the real event and the visitors. A third indicator could be that if the event has a website, it could host a hidden confirmation id which proves that the event you are browsing has control of the mentioned website. 
+
+\paragraph{} Events will be verified by Blocktix Token Holders, requiring them to approve events. There will also be event reporting functionality, allowing users who notice fake events to report them, which would kick off a new vote for verification. Invalid events will then be removed from the system as this will be the easiest, most reliable and fastest method for getting rid of them. Third party scanners could also be created to compare events and raising a red flag if they are too similar. 
+
+\bibliographystyle{unsrtnat}
+\bibliography{biblio.bib}
+\end{document}
