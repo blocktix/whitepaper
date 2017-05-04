@@ -62,7 +62,7 @@ Anyone will be able to purchase advertising rights for an event. These funds wil
 
 \paragraph{} Let $TX_1, TX_2, \ldots, TX_m$ be a sequence of m transactions sent to an advertising contract for event $e$.
 
-\paragraph{}First you would calculate the total amount the advertising contract for a given even e has received by a summation $S_e$ of all $m$ transactions for a given event $e$.
+\paragraph{}First you would calculate the total amount the advertising contract for a given event e has received by a summation $S_e$ of all $m$ transactions for a given event $e$.
 \[S_e = TX_1 + TX_2 + \cdots + TX_m\]
 
 Percentage wise, the amount of views for a given event $e$ should be equal to roughly $C_e$
@@ -101,7 +101,7 @@ The user interface will be created in HTML and JavaScript. Currently, we have cr
 \begin{figure}
 \centering
 \includegraphics[scale=0.22]{BTX-Diagram-4.jpg}
-\caption{\label{fig:BTX-Diagram-4}Ethereum contracts store the hashes references to files stored on IPFS.}
+\caption{\label{fig:BTX-Diagram-4}Ethereum contracts store the hashed references to files stored on IPFS.}
 \end{figure}
 
 \subsection{IPFS}
@@ -122,7 +122,7 @@ The registration contract is tasked to store the latest addresses of the Blockti
 
 
 \paragraph{Blocktix Updates}
-When development is complete, then token holders will be tasked to take responsibility for updates to Blocktix contracts. They will have to regulate the system by approving or declining proposed changes to contracts. A wide range of variables are subject to change by the token holders that apply for every new event contract. 
+When development is complete, token holders will be tasked to take responsibility for updates to Blocktix contracts. They will have to regulate the system by approving or declining proposed changes to contracts. A wide range of variables are subject to change by the token holders that apply for every new event contract. 
 
 \subsection{Blocktix}
 The Blocktix contract houses an array with all event addresses and stores global variables that are enforced on the events and tickets. These include but are not limited to ticket fees, required BTX to enlist event in the feed, and most elements related to the advertisement. 
@@ -156,7 +156,7 @@ The contract is also the entry point for anything related to tickets of the part
 \paragraph{High level overview}
 The event contract stores an array of TicketCategory objects, which in turn stores an array of TicketType objects. The TicketCategory object is merely used to optimize the category system. The TicketType objects store most of the information, including an array of the ticket addresses of all previously sold tickets of that specific TicketType. 
 
-\subsubsection{TicketCategory} Tickets are not limited to entry tickets. They can also be utilized as vouchers for food and drinks. That's why Blocktix provides a categories to allow clean separation of tickets and consumables. 
+\subsubsection{TicketCategory} Tickets are not limited to entry tickets. They can also be utilized as vouchers for food and drinks. That's why Blocktix provides categories to allow clean separation of tickets and consumables. 
 \begin{itemize}
 \item name (Name of category examples: tickets, food, drinks, ..)
 \item types (Array of TicketTypes. examples: entry ticket, hamburger, beer,...)
@@ -186,7 +186,7 @@ The tickets can be freely traded directly between users without risk of counterf
 The event creator can also auction tickets to maximize revenue or in case of scarce ticket supply to allow the market mechanism to find equilibrium. 
 
 \paragraph{TicketBids} 
-Within the BlocktixEvent is an array of TicketBid objects It tracks the bids by users and has the following properties:
+Within the BlocktixEvent is an array of TicketBid objects. It tracks the bids by users and has the following properties:
 \begin{itemize}
 \item owner (Address of the bidder)
 \item buy (Boolean - is bid to buy)
@@ -194,9 +194,9 @@ Within the BlocktixEvent is an array of TicketBid objects It tracks the bids by 
 \item ticketID (ID of ticket type)
 \end{itemize}
 
-The buy variable is in place such that it can be extended to allow sell bids too. This essentially extends the structure to enable both the ticket auctions by the official event creator and the free ticket market where people can trade peer to peer. 
+The buy variable is in place such that it can be extended to allow sell bids as well. This essentially extends the structure to enable both the ticket auctions by the official event creator and the free ticket market where people can trade peer to peer. 
 
-Whenever a bid is placed, the array is updated If it's the only bid in the array, then a time interval starts (set by the event creator) which on expiration automatically sells the ticket to the highest bid in the array. The highest bid is then removed, and all others remain untouched. A new interval then starts, and this loop continues until the array is empty.
+Whenever a bid is placed, the array is updated. If it's the only bid in the array, then a time interval starts (set by the event creator) which on expiration automatically sells the ticket to the highest bid in the array. The highest bid is then removed, and all others remain untouched. A new interval then starts, and this loop continues until the array is empty.
 
 \subsubsection{Ticket Verification}
 
